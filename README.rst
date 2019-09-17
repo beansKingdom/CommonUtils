@@ -8,8 +8,9 @@
 
 
 ### 项目Python版本
+
 pip的一些操作
-```bash
+
 # 升级依赖包
 pip install --upgrade BeanDateUtils
 
@@ -18,4 +19,4 @@ pip install -r requirements.txt
 
 # 更改依赖包文件
 pip freeze > requirements.txt
-```
+
