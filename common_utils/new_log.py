@@ -23,7 +23,19 @@ class NewLog:
     @staticmethod
     def build_path():
         temp_path = os.path.dirname(os.path.realpath(__file__))
-        log_path = temp_path + "/../../static/log/"
+        # 项目中使用的ENV环境, 这时候需要去解析项目目录
+
+        index_env = temp_path.find('ENV')
+        if index_env > 0:
+            project_path = temp_path[:index_env]
+        else:
+            raise Exception("获取项目根目录失败, 未发现虚拟环境ENV目录")
+
+        log_path = project_path + "/static/log/"
+
+        if not os.path.exists(log_path):
+            os.makedirs(log_path)
+
         log_file_path = "%sdata_factory_%s.log" % (
             log_path, datetime.datetime.now().strftime("%y%m%d"))
         return log_file_path

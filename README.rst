@@ -20,3 +20,6 @@ pip install -r requirements.txt
 # 更改依赖包文件
 pip freeze > requirements.txt
 
+
+### Version 0.3
+修改日志工具
