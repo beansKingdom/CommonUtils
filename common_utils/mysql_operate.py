@@ -42,9 +42,9 @@ class MysqlOperate:
         db.close()
 
     @classmethod
-    def mysql_insert_mul(cls, mysql_info, querys):
+    def mysql_insert_mul(cls, mysql_info, queries):
         db, cursor = cls.mysql_conn(mysql_info)
-        for query in querys:
+        for query in queries:
             cursor.execute(query)
             db.commit()
 
