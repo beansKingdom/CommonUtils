@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="BeanCommonUtils",
-    version="0.6.2",
+    version="0.7",
     author="Hly",
     author_email="hlyaction@gmail.com",
     description="A Python library for common methods.",
