@@ -81,8 +81,14 @@ def compute_last_week_time(input_time=None, time_format="%Y-%m-%d"):
         input_time = datetime.datetime.now()
     else:
         input_time = change_str_to_datetime(input_time, str_format=time_format)
-    end_time = input_time - datetime.timedelta(days=(input_time.weekday() + 3))
-    start_time = end_time - datetime.timedelta(days=6)
+
+    interval_time = 4 - input_time.weekday()
+    if interval_time >= 0:
+        end_time = input_time - datetime.timedelta(days=(input_time.weekday() + 3))
+        start_time = end_time - datetime.timedelta(days=6)
+    else:
+        end_time = input_time + datetime.timedelta(days=interval_time)
+        start_time = end_time + datetime.timedelta(days=-6)
     start_time_str = start_time.strftime(time_format)
     end_time_str = end_time.strftime(time_format)
     return start_time_str, end_time_str
@@ -102,8 +108,12 @@ def compute_week_time(input_time=None, time_format="%Y-%m-%d"):
     else:
         input_time = change_str_to_datetime(input_time, str_format=time_format)
     interval_time = 4 - input_time.weekday()
-    end_time = input_time + datetime.timedelta(days=interval_time)
-    start_time = end_time - datetime.timedelta(days=6)
+    if interval_time >= 0:
+        end_time = input_time + datetime.timedelta(days=interval_time)
+        start_time = end_time - datetime.timedelta(days=6)
+    else:
+        start_time = input_time + datetime.timedelta(days=interval_time+1)
+        end_time = start_time + datetime.timedelta(days=6)
     start_time_str = start_time.strftime(time_format)
     end_time_str = end_time.strftime(time_format)
     return start_time_str, end_time_str

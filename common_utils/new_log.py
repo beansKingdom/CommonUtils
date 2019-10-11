@@ -29,7 +29,7 @@ class NewLog:
         if index_env > 0:
             project_path = temp_path[:index_env]
         else:
-            raise Exception("获取项目根目录失败, 未发现虚拟环境ENV目录")
+            project_path = temp_path
 
         log_path = project_path + "/static/log/"
 
