@@ -82,13 +82,18 @@ def compute_last_week_time(input_time=None, time_format="%Y-%m-%d"):
     else:
         input_time = change_str_to_datetime(input_time, str_format=time_format)
 
-    interval_time = 4 - input_time.weekday()
-    if interval_time >= 0:
-        end_time = input_time - datetime.timedelta(days=(input_time.weekday() + 3))
-        start_time = end_time - datetime.timedelta(days=6)
-    else:
-        end_time = input_time + datetime.timedelta(days=interval_time)
-        start_time = end_time + datetime.timedelta(days=-6)
+    # interval_time表示当前时间与本周一的间隔时间
+    interval_time = 0 - input_time.weekday()
+
+    # interval_time-3 表示当前时间与上周五的间隔天数
+    end_time = input_time - datetime.timedelta(days=(-(interval_time-3)))
+    start_time = end_time - datetime.timedelta(days=6)
+    # if interval_time >= 0:
+    #     end_time = input_time - datetime.timedelta(days=(input_time.weekday() + 3))
+    #     start_time = end_time - datetime.timedelta(days=6)
+    # else:
+    #     end_time = input_time + datetime.timedelta(days=interval_time)
+    #     start_time = end_time + datetime.timedelta(days=-6)
     start_time_str = start_time.strftime(time_format)
     end_time_str = end_time.strftime(time_format)
     return start_time_str, end_time_str
@@ -107,13 +112,14 @@ def compute_week_time(input_time=None, time_format="%Y-%m-%d"):
         input_time = datetime.datetime.now()
     else:
         input_time = change_str_to_datetime(input_time, str_format=time_format)
+    # interval_time 表示距离本周5的间隔
     interval_time = 4 - input_time.weekday()
     if interval_time >= 0:
         end_time = input_time + datetime.timedelta(days=interval_time)
         start_time = end_time - datetime.timedelta(days=6)
     else:
-        start_time = input_time + datetime.timedelta(days=interval_time+1)
-        end_time = start_time + datetime.timedelta(days=6)
+        end_time = input_time - datetime.timedelta(days=-interval_time)
+        start_time = end_time - datetime.timedelta(days=6)
     start_time_str = start_time.strftime(time_format)
     end_time_str = end_time.strftime(time_format)
     return start_time_str, end_time_str
@@ -199,4 +205,5 @@ if __name__ == '__main__':
     # print()
     # print(change_datetime_to_str())
     # print(change_str_to_datetime())
-    print(compute_next_week_first_day())
+    print(compute_week_time())
+    print(compute_last_week_time())
