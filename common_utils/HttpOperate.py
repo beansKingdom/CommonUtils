@@ -12,25 +12,24 @@ class HttpOperate:
 
     @classmethod
     def http_get(cls, url, headers, params=None, **kwargs):
-        cookies = kwargs.get('cookies')
-        response = cls.session.get(url=url, headers=headers, cookies=cookies, params=params, **kwargs)
+        response = cls.session.get(url=url, headers=headers, params=params, **kwargs)
         time.sleep(cls.interval_time)
         return response.text, response.status_code
 
     @classmethod
-    def http_post(cls, url, headers, params=None, cookies=None, data=None,  **kwargs):
-        response = cls.session.post(url=url, headers=headers, cookies=cookies, params=params, data=data, **kwargs)
+    def http_post(cls, url, headers, params=None, data=None,  **kwargs):
+        response = cls.session.post(url=url, headers=headers, params=params, data=data, **kwargs)
         time.sleep(cls.interval_time)
         return response.text, response.status_code
 
     @classmethod
-    def http_put(cls, url, headers, cookies=None, data=None, **kwargs):
-        response = cls.session.put(url=url, headers=headers, cookies=cookies, data=data, **kwargs)
+    def http_put(cls, url, headers, data=None, **kwargs):
+        response = cls.session.put(url=url, headers=headers, data=data, **kwargs)
         time.sleep(cls.interval_time)
         return response.text, response.status_code
 
     @classmethod
-    def http_delete(cls, url, headers, cookies=None, **kwargs):
-        response = cls.session.delete(url=url, headers=headers, cookies=cookies, **kwargs)
+    def http_delete(cls, url, headers, **kwargs):
+        response = cls.session.delete(url=url, headers=headers, **kwargs)
         time.sleep(cls.interval_time)
         return response.text, response.status_code
