@@ -1,6 +1,8 @@
 import datetime
 import time
 
+from common_utils import rand_utils
+
 
 def compute_interval_days(interval_days, input_time=None):
     """
@@ -191,6 +193,21 @@ def compute_timestamp(time_str, time_format):
     return int(time.mktime(datetime.datetime.strptime(time_str, time_format).timetuple()))
 
 
+def compute_seconds_specific_time(input_time=None, time_format="%Y%m%d%H%M%S"):
+    if not input_time:
+        input_time = datetime.datetime.now()
+        specific_time = change_datetime_to_str(input_time=input_time, str_format=time_format)
+    else:
+        if isinstance(input_time, str):
+            specific_time = input_time + str(rand_utils.random_int(min_value=100000, max_value=999999))
+        elif isinstance(input_time, datetime.datetime):
+            specific_time = change_datetime_to_str(input_time=input_time, str_format=time_format)
+        else:
+            raise Exception("input_time type error, maybe str or datetime.datetime")
+
+    return specific_time
+
+
 if __name__ == '__main__':
     # print(compute_interval_days(-3))
     # print(compute_interval_days(-3, datetime.datetime(2019, 8, 3, 15, 0, 0)))
@@ -205,5 +222,8 @@ if __name__ == '__main__':
     # print()
     # print(change_datetime_to_str())
     # print(change_str_to_datetime())
-    print(compute_week_time())
-    print(compute_last_week_time())
+    # print(compute_week_time())
+    # print(compute_last_week_time())
+    # print(compute_time_stamp())
+    # print(compute_seconds_specific_time("20191112"))
+    print(compute_seconds_specific_time())
