@@ -93,3 +93,20 @@ class DateUtilsTest(unittest.TestCase):
         real_time = date_utils.compute_time(1)
         expect_time = "2019-10-14"
         self.assertEqual(expect_time, real_time)
+
+    """
+    compute_interval_time
+    """
+    def test_compute_interval_time_str(self):
+        start_time = "2019-11-14"
+        end_time = "2019-11-15"
+        interval_time = date_utils.compute_interval_time(start_time, end_time)
+        self.assertEqual(86400.0, interval_time)
+
+    def test_compute_interval_time_str_1(self):
+        start_time = "2019-11-14 14:15:00"
+        end_time = "2019-11-14 15:00:00"
+        format_time = "%Y-%m-%d %H:%M:%S"
+        interval_time = date_utils.compute_interval_time(start_time, end_time, time_format=format_time)
+        print(interval_time)
+        self.assertEqual(2700.0, interval_time)

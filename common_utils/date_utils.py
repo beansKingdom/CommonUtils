@@ -153,8 +153,11 @@ def change_str_to_datetime(input_time=None, str_format="%Y-%m-%d"):
     :param str_format: 字符时间的格式, 默认%Y-%m-%d
     :return:
     """
-    spec_time = input_time or change_datetime_to_str(str_format=str_format)
-    return datetime.datetime.strptime(spec_time, str_format)
+    try:
+        spec_time = input_time or change_datetime_to_str(str_format=str_format)
+        return datetime.datetime.strptime(spec_time, str_format)
+    except Exception as e:
+        raise Exception("类型转换失败, 错误信息: e" % e)
 
 
 def change_datetime_to_str(input_time=None, str_format="%Y-%m-%d"):
@@ -193,7 +196,34 @@ def compute_timestamp(time_str, time_format):
     return int(time.mktime(datetime.datetime.strptime(time_str, time_format).timetuple()))
 
 
+def compute_interval_time(start_time, end_time, time_format="%Y-%m-%d"):
+    """
+    计算两个时间之间的间隔(精度秒)
+    :param start_time:
+    :param end_time:
+    :param time_format:
+    :return:
+    """
+    if type(start_time) != type(end_time):
+        raise ValueError("params type was different, start_time: %s end_time:%s " % (type(start_time), type(end_time)))
+
+    if isinstance(start_time, datetime.datetime) and isinstance(end_time, datetime.datetime):
+        start_time_date, end_time_date = start_time, end_time
+    elif isinstance(start_time, str) and isinstance(end_time, str):
+        start_time_date = change_str_to_datetime(start_time, time_format)
+        end_time_date = change_str_to_datetime(end_time, time_format)
+    else:
+        raise ValueError("params type was error, start_time: %s end_time:%s, type must be: 'str' or 'datetime.datetime'"
+                         % (type(start_time), type(end_time)))
+
+    interval_time = (end_time_date - start_time_date).total_seconds()
+    return interval_time
+
+
 def compute_seconds_specific_time(input_time=None, time_format="%Y%m%d%H%M%S"):
+    """
+    按指定字符模板返回指定时间的字符串格式, 返回时间戳(精度秒)
+    """
     if not input_time:
         input_time = datetime.datetime.now()
         specific_time = change_datetime_to_str(input_time=input_time, str_format=time_format)
@@ -206,6 +236,8 @@ def compute_seconds_specific_time(input_time=None, time_format="%Y%m%d%H%M%S"):
             raise Exception("input_time type error, maybe str or datetime.datetime")
 
     return specific_time
+
+
 
 
 if __name__ == '__main__':
