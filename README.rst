@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 # CommonUtils
 
 1. 修改setup中的版本

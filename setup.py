@@ -1,9 +1,11 @@
+# -*- coding: UTF-8 -*-
+
 from __future__ import print_function
 from setuptools import setup, find_packages
 
 setup(
     name="BeanCommonUtils",
-    version="0.7.6",
+    version="0.7.7",
     author="Hly",
     author_email="hlyaction@gmail.com",
     description="A Python library for common methods.",
