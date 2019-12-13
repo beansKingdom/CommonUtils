@@ -5,11 +5,11 @@ from setuptools import setup, find_packages
 
 setup(
     name="BeanCommonUtils",
-    version="0.7.7",
+    version="0.7.8",
     author="Hly",
     author_email="hlyaction@gmail.com",
     description="A Python library for common methods.",
-    long_description=open("README.rst").read(),
+    long_description=open("README.rst", encoding='gb18030', errors='ignore').read(),
     license="MIT",
     url="https://github.com/beansKingdom/CommonUtils",
     packages=find_packages(),
