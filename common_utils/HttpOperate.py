@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import requests
 import time
 from common_utils.new_log import NewLog

@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 import unittest
 
 from common_utils import date_utils

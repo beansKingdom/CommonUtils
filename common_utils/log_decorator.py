@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 from common_utils.new_log import NewLog
 
 
