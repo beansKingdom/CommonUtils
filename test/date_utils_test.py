@@ -99,12 +99,14 @@ class DateUtilsTest(unittest.TestCase):
     """
     compute_interval_time
     """
+    @PrintMethodName()
     def test_compute_interval_time_str(self):
         start_time = "2019-11-14"
         end_time = "2019-11-15"
         interval_time = date_utils.compute_interval_time(start_time, end_time)
         self.assertEqual(86400.0, interval_time)
 
+    @PrintMethodName()
     def test_compute_interval_time_str_1(self):
         start_time = "2019-11-14 14:15:00"
         end_time = "2019-11-14 15:00:00"
@@ -112,3 +114,12 @@ class DateUtilsTest(unittest.TestCase):
         interval_time = date_utils.compute_interval_time(start_time, end_time, time_format=format_time)
         print(interval_time)
         self.assertEqual(2700.0, interval_time)
+
+    """
+    compute_special_time_timestamp
+    """
+    @PrintMethodName()
+    def test_compute_special_time_timestamp_1(self):
+        input_time = "2000-1-1 00:00:00"
+        real_timestamp = date_utils.compute_special_time_timestamp(input_time)
+        assert real_timestamp == 946656000000

@@ -240,6 +240,17 @@ def compute_seconds_specific_time(input_time=None, time_format="%Y%m%d%H%M%S"):
     return specific_time
 
 
+def compute_special_time_timestamp(input_time, time_format="%Y-%m-%d %H:%M:%S"):
+    """
+    按指定格式的时间的字符串入参, 返回它的时间戳(精度毫秒)
+    """
+    if not input_time:
+        input_time = datetime.datetime.now()
+    else:
+        if isinstance(input_time, str):
+            input_time = change_str_to_datetime(input_time, time_format)
+
+    return int(round(input_time.timestamp() * 1000))
 
 
 if __name__ == '__main__':
