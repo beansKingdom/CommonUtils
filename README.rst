@@ -25,3 +25,6 @@ pip freeze > requirements.txt
 
 ### Version 0.3
 修改日志工具
+
+### Version 1.0.1
+date_utils add compute_special_time_timestamp 按指定格式的时间的字符串入参, 返回它的时间戳(精度毫秒)
