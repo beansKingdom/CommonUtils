@@ -14,7 +14,7 @@
 pip的一些操作
 
 # 升级依赖包
-pip install --upgrade BeanDateUtils
+pip install --upgrade BeanCommonUtils
 
 # 安装依赖包
 pip install -r requirements.txt
