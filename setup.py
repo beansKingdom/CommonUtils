@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="BeanCommonUtils",
-    version="1.1.0",
+    version="1.1.1",
     author="Hly",
     author_email="hlyaction@gmail.com",
     description="A Python library for common methods.",

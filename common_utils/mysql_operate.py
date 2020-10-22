@@ -20,21 +20,6 @@ class MysqlOperate:
         return db, cursor
 
     @classmethod
-    def mysql_query(cls, mysql_info, query):
-        db, cursor = cls.mysql_conn(mysql_info)
-
-        cursor.execute(query)
-        # 获取所有字段名称
-        col_name_list = [tuple_data[0] for tuple_data in cursor.description]
-        results = cursor.fetchall()
-        result_list = []
-        for row in results:
-            result_list.append(row)
-
-        db.close()
-        return result_list, col_name_list
-
-    @classmethod
     def mysql_insert(cls, mysql_info, query):
         db, cursor = cls.mysql_conn(mysql_info)
         cursor.execute(query)
@@ -49,3 +34,25 @@ class MysqlOperate:
             db.commit()
 
         db.close()
+
+    @classmethod
+    def new_mysql_query(cls, mysql_info, query_template, params=None):
+        """
+        替换原有的mysql_query方法，该方法的主要目的是防止sql注入
+        :param mysql_info:
+        :param query_template: 查询sql的模板
+        :param params: 替换sql模板中的动态参数
+        :return:
+        """
+        db, cursor = cls.mysql_conn(mysql_info)
+        cursor.execute(query_template, params)
+
+        # 获取所有字段名称
+        col_name_list = [tuple_data[0] for tuple_data in cursor.description]
+        results = cursor.fetchall()
+        result_list = []
+        for row in results:
+            result_list.append(row)
+
+        db.close()
+        return result_list, col_name_list
