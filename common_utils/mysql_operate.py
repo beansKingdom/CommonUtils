@@ -36,6 +36,21 @@ class MysqlOperate:
         db.close()
 
     @classmethod
+    def new_mysql_insert(cls, mysql_info, sql_template, params=None):
+        """
+        替换原有的mysql_insert/update/delete方法，该方法的主要目的是防止sql注入
+        :param mysql_info:
+        :param sql_template: sql的模板
+        :param params: 替换sql模板中的动态参数  parameters used with sql_template. (optional)
+        :type params: tuple, list or dict
+        :return:
+        """
+        db, cursor = cls.mysql_conn(mysql_info)
+        cursor.execute(sql_template, params)
+        db.commit()
+        db.close()
+
+    @classmethod
     def new_mysql_query(cls, mysql_info, query_template, params=None):
         """
         替换原有的mysql_query方法，该方法的主要目的是防止sql注入
