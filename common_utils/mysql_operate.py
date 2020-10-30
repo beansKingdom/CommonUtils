@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 import pymysql
+from pymysql.cursors import DictCursor
 
 
 class MysqlOperate:
 
     @classmethod
-    def mysql_conn(cls, mysql_info):
+    def mysql_conn(cls, mysql_info, dict_flag=False):
         host = mysql_info['host']
         user_name = mysql_info['user_name']
         passwd = mysql_info['passwd']
@@ -16,7 +17,10 @@ class MysqlOperate:
         else:
             port = 3306
         db = pymysql.connect(host, user_name, passwd, dbname, port, charset="utf8")
-        cursor = db.cursor()
+        if dict_flag:
+            cursor = db.cursor(DictCursor)
+        else:
+            cursor = db.cursor()
         return db, cursor
 
     @classmethod
@@ -47,8 +51,10 @@ class MysqlOperate:
         """
         db, cursor = cls.mysql_conn(mysql_info)
         cursor.execute(sql_template, params)
+        res_id = db.insert_id()
         db.commit()
         db.close()
+        return res_id
 
     @classmethod
     def new_mysql_query(cls, mysql_info, query_template, params=None):
@@ -71,3 +77,19 @@ class MysqlOperate:
 
         db.close()
         return result_list, col_name_list
+
+    @classmethod
+    def new_mysql_query_return_dict(cls, mysql_info, query_template, params=None):
+        """
+        替换原有的mysql_query方法，该方法的主要目的是防止sql注入
+        :param mysql_info:
+        :param query_template: 查询sql的模板
+        :param params: 替换sql模板中的动态参数
+        :return:
+        """
+        db, cursor = cls.mysql_conn(mysql_info, dict_flag=True)
+        cursor.execute(query_template, params)
+        results = cursor.fetchall()
+
+        db.close()
+        return results
