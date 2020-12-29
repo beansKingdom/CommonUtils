@@ -14,7 +14,7 @@ class NewLog:
 
         # level = INFO
         logging.basicConfig(level="DEBUG",
-                            format='%(asctime)s [%(filename)s line:%(lineno)d] %(levelname)s %(message)s',
+                            format='%(asctime)s [%(filename)s line:%(lineno)s] %(levelname)s %(message)s',
                             datefmt='%a %d %b %Y %H:%M:%S',
                             filename=self.log_file_path,
                             filemode='a')
