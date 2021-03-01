@@ -93,3 +93,25 @@ class MysqlOperate:
 
         db.close()
         return results
+
+    @classmethod
+    def new_mysql_batch_update(cls, mysql_info, update_templates, params_list=None):
+        """
+        批量执行SQL, 并且保证在同一个事务中执行
+        :param mysql_info:
+        :param update_templates: insert/update 相关的sql的模板
+        :param params_list: 替换sql模板中的动态参数
+        :return:
+        """
+        db, cursor = cls.mysql_conn(mysql_info, dict_flag=True)
+        try:
+            for template_index in range(0, len(update_templates)):
+                cursor.execute(update_templates[template_index], params_list[template_index])
+        except Exception as e:
+            db.rollback()  # 事务回滚
+            raise Exception(e)
+        else:
+            db.commit()  # 事务提交
+
+        db.close()
+        return "操作成功"
